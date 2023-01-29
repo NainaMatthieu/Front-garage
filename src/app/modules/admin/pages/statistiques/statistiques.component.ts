@@ -56,18 +56,6 @@ export class StatistiquesComponent implements OnInit, OnDestroy
                 icon       : 'heroicons_outline:currency-dollar',
                 title      : 'Bénéfice',
                 description: 'Avoir le bénéfice par mois en entrant les dépenses'
-            },
-            {
-                id         : 'notifications',
-                icon       : 'heroicons_outline:bell',
-                title      : 'Notifications',
-                description: 'Manage when you\'ll be notified on which channels'
-            },
-            {
-                id         : 'team',
-                icon       : 'heroicons_outline:user-group',
-                title      : 'Team',
-                description: 'Manage your existing team and change roles/permissions'
             }
         ];
 
