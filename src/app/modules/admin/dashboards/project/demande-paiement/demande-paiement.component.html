@@ -1,0 +1,161 @@
+<markdown [data]="markdown"></markdown>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+
+    <mat-drawer-container class="flex-auto h-full">
+
+        <!-- Drawer -->
+        <mat-drawer
+            class="w-80"
+            [autoFocus]="false"
+            [mode]="drawerMode"
+            [opened]="drawerOpened"
+            #matDrawer>
+
+            <div class="flex flex-col flex-auto h-full dark:bg-default">
+                <div class="flex flex-wrap items-center pl-4 pr-6 py-3 md:pl-6 border-b">
+                    <button
+                        class="mr-6 lg:hidden"
+                        mat-icon-button
+                        (click)="matDrawer.toggle()">
+                        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+                    </button>
+                    <div class="flex flex-col flex-auto my-3 mr-6">
+                        <div class="flex items-center">
+                            <div class="font-medium text-2xl text-secondary mr-2">Ajouter ici les pièces à réparer.</div>
+                        </div>
+                        <div class="flex items-end mt-1">
+                            <div class="font-medium tracking-tight text-secondary">(Déplacer vers le tableau à droite les réparations)</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Watchlist -->
+                <div class="flex flex-col flex-0  overflow-y-auto"
+                #activeList="cdkDropList"
+                cdkDropList
+                cdkDropListOrientation="vertical"
+                [cdkDropListData]="activeCustomers"
+                [cdkDropListConnectedTo]="[inactiveList]"
+                (cdkDropListDropped)="drop($event)"
+                style="min-height: 75%;background-color: #f8fafc;"
+                >
+                        <a
+                            class="z-20 flex items-center py-5 px-8 cursor-pointer border-b"
+                            [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': true,
+                                        'bg-primary-50 dark:bg-hover': true}"
+                            [ng-reflect-ng-disabled]="true"
+                            *ngFor="let customer of activeCustomers"
+                            cdkDrag
+                            >
+                            <div class="min-w-0 ml-4">
+                                <div class="font-medium leading-5 truncate">{{customer.name}}</div>
+                                <div
+                                    class="leading-5 truncate text-secondary"
+                                    [class.text-primary]="1> 0"
+                                    [class.dark:text-primary-500]="1 > 0">
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end self-start ml-auto pl-2">
+                                <ng-container>
+                                    <mat-icon
+                                        class="icon-size-5 text-hint"
+                                        [svgIcon]="'feather:settings'"></mat-icon>
+                                </ng-container>
+                            </div>
+                            
+                        </a>
+                </div>
+                <!-- Buy / Sell -->
+                <div class="flex flex-col flex-auto shrink-0 pt-6 bg-gray-50 dark:bg-transparent">
+
+                    <!-- Action -->
+                    <div class="flex flex-col px-6 pb-2">
+
+                    </div>
+
+                    <!-- Wallet -->
+                    <div class="flex flex-col px-6 pb-2">
+                       
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-drawer>
+
+        <!-- Content -->
+        <mat-drawer-content class="flex flex-col" >
+
+            <!-- BTC Price -->
+            <div class="flex flex-col flex-auto min-h-full bg-card dark:bg-default">
+                <div class="flex flex-wrap items-center pl-4 pr-6 py-3 md:pl-6 border-b">
+                    <button
+                        class="mr-6 lg:hidden"
+                        mat-icon-button
+                        (click)="matDrawer.toggle()">
+                        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+                    </button>
+                    <div class="flex flex-col flex-auto my-3 mr-6">
+                        <div class="flex items-center">
+                            <div class="font-medium text-4xl text-secondary mr-2">Diagnostic</div>
+                        </div>
+                        <div class="flex items-end mt-1">
+                            <div class="font-medium tracking-tight text-secondary">Un diagnostic régulier est essentiel pour garantir la sécurité et la longévité de votre véhicule</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main -->
+                <div class="flex-auto overflow-y-auto" cdkScrollable
+                    #inactiveList="cdkDropList"
+                    class="box-list"
+                    cdkDropList
+                    cdkDropListOrientation="vertical"
+                    [cdkDropListData]="inactiveCustomers"
+                    [cdkDropListConnectedTo]="[activeList]"
+                    (cdkDropListDropped)="drop($event)"
+                    style="width: 100%;"
+                >
+    
+                    <!-- Steps -->
+                    <mat-tab-group class="fuse-mat-no-header" [animationDuration]="'200'" style="width:100%">
+                        <ng-container>
+                            <mat-tab>
+                                <ng-template matTabContent>
+                                    <div
+                                        class="prose prose-sm max-w-3xl mx-auto sm:my-2 lg:mt-4 p-6 sm:p-10 sm:py-12 rounded-2xl shadow overflow-hidden bg-card">
+                                        <table class="table" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Nom</th>
+                                                    <th scope="col">Age</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngIf="inactiveCustomers.length>0; else noSortie">
+                                                    <tr *ngFor="let customer of inactiveCustomers;let i =index" cdkDrag>
+                                                        <th scope="row">1</th>
+                                                        <td>{{customer?.name}}</td>
+                                                        <td>{{customer?.age}}</td>
+                                                    </tr>
+                                                </ng-container>
+                                                <ng-template #noSortie>
+                                                    
+                                                        <p>Pas de réparation</p>
+                                                    
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </ng-template>
+                            </mat-tab>
+                        </ng-container>
+                    </mat-tab-group>
+                </div>
+            </div>
+
+        </mat-drawer-content>
+
+    </mat-drawer-container>
+
+</div>

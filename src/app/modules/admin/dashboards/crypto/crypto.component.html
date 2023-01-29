@@ -1,0 +1,260 @@
+<markdown [data]="markdown"></markdown>
+<div class="absolute inset-0 flex flex-col min-w-0 overflow-hidden">
+   
+    <mat-drawer-container class="flex-auto h-full">
+        <!-- Drawer -->
+
+        <mat-drawer
+            class="w-80"
+            [autoFocus]="false"
+            [mode]="drawerMode"
+            [opened]="drawerOpened"
+            #matDrawer
+         
+        >
+            <!-- Paiement -->
+            <div class="flex flex-col flex-auto h-full dark:bg-default">
+                <div class="flex flex-wrap items-center pl-4 pr-6 py-3 md:pl-6 border-b">
+                    <button
+                        class="mr-6 lg:hidden"
+                        mat-icon-button
+                        (click)="matDrawer.toggle()">
+                        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+                    </button>
+                    <div class="flex flex-col flex-auto my-3 mr-6">
+                        <div class="flex items-center">
+                            <div class="font-medium text-2xl text-secondary mr-2">Ajouter ici les pièces à réparer.</div>
+                        </div>
+                        <div class="flex items-end mt-1">
+                            <div class="font-medium tracking-tight text-secondary">(Déplacer vers le tableau à droite les réparations)</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Watchlist -->
+                <div class="flex flex-col flex-0  overflow-y-auto"
+                #activeList="cdkDropList"
+                cdkDropList
+                cdkDropListOrientation="vertical"
+                [cdkDropListData]="reparationUser"
+                [cdkDropListConnectedTo]="[inactiveList]"
+                (cdkDropListDropped)="drop($event)"
+                style="min-height: 55%;background-color: #f8fafc;"
+                >
+
+                    <ng-container *ngIf="selectedVoiture!==undefined && selectedDateReparation!==undefined">
+                        <ng-container *ngIf="reparationUser.length>0; else noreparationUser">
+                            <a
+                            class="z-20 flex items-center py-5 px-8 cursor-pointer border-b"
+                            [ngClass]="{'hover:bg-gray-100 dark:hover:bg-hover': true,
+                                        'bg-primary-50 dark:bg-hover': true}"
+                            [ng-reflect-ng-disabled]="true"
+                            *ngFor="let rep of reparationUser"
+                            cdkDrag
+                            >
+                                <div class="min-w-0 ml-4">
+                                    <div class="font-medium leading-5 truncate">{{rep?.piece.designation}}</div>
+                                    <div
+                                        class="leading-5 truncate text-secondary"
+                                        [class.text-primary]="1> 0"
+                                        [class.dark:text-primary-500]="1 > 0">
+                                        Prix de la pièce : {{rep.piece.prix}}Ar
+                                    </div>
+                                    <div
+                                        class="leading-5  tracking-tight text-secondary"
+                                        [class.dark:text-primary-500]="1 > 0">
+                                        Prix total : {{rep.prix}}Ar
+                                    </div>
+                                </div>
+                                <div class="flex flex-col items-end self-start ml-auto pl-2">
+                                    <ng-container>
+                                        <mat-icon
+                                            class="icon-size-5 text-hint"
+                                            [svgIcon]="'feather:settings'"></mat-icon>
+                                    </ng-container>
+                                </div>
+                            
+                            </a>
+                        </ng-container>
+                        <ng-template #noreparationUser >
+                            <div class="min-w-0 ml-4">
+                                <div class="font-medium leading-5 truncate">Pas encore de réparation ou vous avez déjà tout régler.</div>
+                                <div
+                                    class="leading-5 truncate text-secondary"
+                                    [class.text-primary]="1> 0"
+                                    [class.dark:text-primary-500]="1 > 0">
+                                </div>
+                            </div>
+                            <div class="flex flex-col items-end self-start ml-auto pl-2">
+                                <ng-container>
+                                    <mat-icon
+                                        class="icon-size-5 text-hint"
+                                        [svgIcon]="'heroicons_outline:x'"></mat-icon>
+                                </ng-container>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+                        
+                </div>
+                <!-- Choix vehicule -->
+                <div class="flex flex-col flex-auto shrink-0 pt-6 bg-gray-50 dark:bg-transparent" *ngIf="selectedVoiture===undefined">
+                  
+                    <div class="flex flex-col px-6 pb-2">
+                        <div class="flex items-end mt-1">
+                            <div class="font-medium tracking-tight text-secondary">Veuillez choisir le vehicule pour régler un paiement.</div>
+                        </div>
+                            <mat-form-field>
+                                <span
+                                    class="flex items-center justify-center"
+                                    matPrefix>
+                                    <ng-container>
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="'heroicons_solid:download'"></mat-icon>
+                                    </ng-container>
+                                </span>
+                                <mat-select name="select_Vehicule" (selectionChange)="choisirVehicule($event)">
+                                    <mat-option *ngFor="let vehicule of listVoiture" [value]="vehicule._id">{{vehicule.modele}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                    </div>
+                </div>
+                <!-- Fin choix vehicule -->
+                <!--Choix réparation  -->
+                <div class="flex flex-col flex-auto shrink-0 pt-6 bg-gray-50 dark:bg-transparent" *ngIf="selectedVoiture!==undefined">
+                  
+                    <div class="flex flex-col px-6 pb-2">
+                        <div class="flex items-end mt-1">
+                            <div class="font-medium tracking-tight text-secondary">Veuillez choisir la réparation.</div>
+                        </div>
+                            <mat-form-field>
+                                <span
+                                    class="flex items-center justify-center"
+                                    matPrefix>
+                                    <ng-container>
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="'heroicons_outline:calendar'"></mat-icon>
+                                    </ng-container>
+                                </span>
+                                <mat-select name="select_Vehicule" (selectionChange)="choisirReparation($event)">
+                                    <mat-option *ngFor="let date of reparationVoitureUser;let i=index" value="{{i}}">a débuté le : {{date.dateArrivee  | date:'medium'}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                    </div>
+                </div>
+                <!-- Fin réparation -->
+            </div>
+            <!-- Fin Paiement -->
+        </mat-drawer>
+
+        <!-- Content -->
+        <mat-drawer-content class="flex flex-col" >
+
+            <!-- BTC Price -->
+            <div class="flex flex-col flex-auto min-h-full bg-card dark:bg-default">
+                <div class="flex flex-wrap items-center pl-4 pr-6 py-3 md:pl-6 border-b">
+                    <button
+                        class="mr-6 lg:hidden"
+                        mat-icon-button
+                        (click)="matDrawer.toggle()">
+                        <mat-icon [svgIcon]="'heroicons_outline:menu'"></mat-icon>
+                    </button>
+                    <div class="flex flex-col flex-auto my-3 mr-6">
+                        <div class="flex items-center">
+                            <div class="font-medium text-4xl text-secondary mr-2">Demande paiement</div>
+                        </div>
+                        <div class="flex items-end mt-1">
+                            <div class="font-medium tracking-tight text-secondary">Une vérification régulière de vos transactions de paiement est essentielle pour assurer la sécurité et la transparence de vos finances</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Main -->
+                <div class="flex-auto overflow-y-auto" cdkScrollable
+                    #inactiveList="cdkDropList"
+                    class="box-list"
+                    cdkDropList
+                    cdkDropListOrientation="vertical"
+                    [cdkDropListData]="reparationToAdd"
+                    [cdkDropListConnectedTo]="[activeList]"
+                    (cdkDropListDropped)="drop($event)"
+                    style="width: 100%;"
+                >
+    
+                    <!-- Steps -->
+                    <mat-tab-group class="fuse-mat-no-header" [animationDuration]="'200'" style="width:100%">
+                        <ng-container>
+                            <mat-tab>
+                                <ng-template matTabContent>
+                                    <div
+                                        class="prose prose-sm max-w-3xl mx-auto sm:my-2 lg:mt-4 p-6 sm:p-10 sm:py-12 rounded-2xl shadow overflow-hidden bg-card">
+                                        <table class="table" style="width: 100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Désignation</th>
+                                                    <th scope="col">Pièce</th>
+                                                    <th scope="col">Total</th>
+                                                    <th scope="col"></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <ng-container *ngIf="selectedVoiture!==undefined && selectedDateReparation!==undefined;else noSelected">
+                                                    <ng-container *ngIf="reparationToAdd.length>0; else noSortie">
+                                                        <tr *ngFor="let rep of reparationToAdd;let i =index" cdkDrag>
+                                                            <th scope="row">1</th>
+                                                            <td>{{rep?.piece.designation}}</td>
+                                                            <td>{{rep.piece.prix}}Ar</td>
+                                                            <td>{{rep.prix}}Ar</td>
+                                                            <td><button
+                                                                class="min-w-10 min-h-7 h-7 px-2 leading-6"
+                                                                mat-stroked-button
+                                                                (click)="deleteReparationToAdd(i)">
+                                                                <mat-icon
+                                                                    class="icon-size-5"
+                                                                    [svgIcon]="'mat_solid:delete_forever'"></mat-icon>
+                                                            </button>
+                                                        </tr>
+                                                    </ng-container>
+                                                    <ng-template #noSortie>
+                                                        
+                                                            <p>Pas de réparation</p>
+                                                        
+                                                    </ng-template>
+                                                </ng-container>
+                                                <ng-template #noSelected>
+                                                        <ng-container *ngIf="selectedVoiture!==undefined && selectedDateReparation==undefined; else noVehicule">
+                                                                <p>Veuillez choisir la date de début des réparations</p>
+                                                        </ng-container>
+                                                        <ng-template #noVehicule>
+                                                                <p >Vous n'avez pas encore choisi un vehicule</p>
+                                                        </ng-template>
+                                                   
+                                                </ng-template>
+                                            </tbody>
+                                        </table>
+                                        <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                                            <button
+                                                class="ml-4"
+                                                mat-flat-button
+                                                style="background-color: #59df10d4;"
+                                                (click)="confirmeDemandePaiement()">
+                                                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                                <span class="ml-2 mr-1">Validé</span>
+                                                <mat-progress-spinner
+                                                    [diameter]="24"
+                                                    [mode]="'indeterminate'"></mat-progress-spinner>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </mat-tab>
+                        </ng-container>
+                    </mat-tab-group>
+                </div>
+            </div>
+
+        </mat-drawer-content>
+
+    </mat-drawer-container>
+
+</div>

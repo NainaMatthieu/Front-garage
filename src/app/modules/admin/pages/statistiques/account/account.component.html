@@ -1,0 +1,42 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Country -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Voiture</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:car'"
+                        matPrefix></mat-icon>
+                        <mat-select [formControl]="countryControl">
+                            <mat-option *ngFor="let car of listCars" [value]="car._id">{{ car.modele }}</mat-option>
+                          </mat-select>
+                </mat-form-field>
+            </div>
+            
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center ">
+            <button (click)="getTemps()"
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                [color]="'primary'">Voir
+            </button>
+        </div>
+    <div class="mt-11 mb-10 border-t"></div>
+    <p>Temps passé en moyenne en général sur une voiture : {{tempsGlobal}}</p>
+    <div class="mt-11 mb-10 border-t"></div>
+    <ng-container *ngIf="temps">
+        <p>Temps passé en moyenne sur le véhicule séléctionné : {{temps}}</p>
+    </ng-container>
+    
+
+
+</div>

@@ -1,0 +1,100 @@
+<div
+    class="absolute inset-0 flex flex-col min-w-0 overflow-y-auto"
+    cdkScrollable>
+
+    <!-- Header -->
+    <div class="relative flex-0 py-8 px-4 sm:p-16 overflow-hidden bg-gray-800 dark">
+        <!-- Background - @formatter:off -->
+        <!-- Rings -->
+        <svg class="absolute inset-0 pointer-events-none"
+             viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+                <circle r="234" cx="196" cy="23"></circle>
+                <circle r="234" cx="790" cy="491"></circle>
+            </g>
+        </svg>
+        <!-- @formatter:on -->
+        <div class="z-10 relative flex flex-col items-center">
+            <h2 class="text-xl font-semibold">AUTO GARAGE</h2>
+            <div class="mt-1 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight text-center">
+                Reception de voitures
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto p-6 sm:p-10">
+
+        <div class="flex flex-col flex-auto w-full max-w-xs sm:max-w-5xl mx-auto">
+            <!-- Filters -->
+            
+            <!-- Courses -->
+            <ng-container *ngIf="this.filteredCourses.length > 0; else noCourses">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8 sm:mt-10">
+                    <ng-container *ngFor="let course of filteredListeReparations; trackBy: trackByFn">
+                        <!-- Course -->
+                        <div class="flex flex-col h-96 shadow rounded-2xl overflow-hidden bg-card">
+                            <div class="flex flex-col p-6">
+                                <div class="flex items-center justify-between">
+                                    <!-- Course category -->
+                                    
+                                    
+                                </div>
+                                <!-- Course title & description -->
+                                <div class="mt-4 text-lg font-medium">Voiture : {{course?.modele}}</div>
+                                <div class="mt-0.5 line-clamp-2 text-secondary">Immatriculation : {{course?.numero}}</div>
+                                <div class="w-12 h-1 my-6 border-t-2"></div>
+                                <!-- Course time -->
+                                <div class="flex items-center leading-5 text-md text-secondary">
+                                    <mat-icon
+                                        class="icon-size-5 text-hint"
+                                        [svgIcon]="'heroicons_solid:clock'"></mat-icon>
+                                    <div class="ml-1.5">Propriétaire : {{course?.duration}}</div>
+                                </div>
+                                
+                            </div>
+                            <!-- Footer -->
+                            <div class="flex flex-col w-full mt-auto">
+                            
+
+                                <!-- Course launch button -->
+                                <div class="px-6 py-4 text-right bg-gray-50 dark:bg-transparent">
+                                    <a
+                                        mat-stroked-button
+                                        [routerLink]="[course?._id]">
+                                        <span class="inline-flex items-center">
+
+                                           
+
+                                            <!-- Started -->
+                                            
+                                                <span>Continue</span>
+                                            
+
+                                            <mat-icon
+                                                class="ml-1.5 icon-size-5"
+                                                [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+                                        </span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </ng-container>
+
+            <!-- No courses -->
+            <ng-template #noCourses>
+                <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
+                    <mat-icon
+                        class="icon-size-24"
+                        [svgIcon]="'heroicons_outline:document-search'"></mat-icon>
+                    <div class="mt-6 text-2xl font-semibold tracking-tight text-secondary">Pas de voitures à réceptionner !</div>
+                </div>
+            </ng-template>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,182 @@
+<div class="w-full max-w-3xl">
+
+        <div class="w-full">
+            <div class="text-xl">Voir bénéfice par mois</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+ 
+            <!-- New password -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Mois</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:car'" matPrefix></mat-icon>
+                    <mat-select [formControl]="monthControl">
+                        <mat-option *ngFor="let month of months; let i = index" [value]="i+1">{{ month }}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Année</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:car'" matPrefix></mat-icon>
+                    <mat-select [formControl]="yearControl">
+                        <!-- <mat-option *ngFor="let car of listCars" [value]="car._id">{{ car.modele }}</mat-option> -->
+                        <mat-option value="2022">2022</mat-option>
+                        <mat-option value="2023">2023</mat-option>
+                        <mat-option value="2024">2024</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+        <br>
+        <!-- Actions -->
+    <div class="flex items-center justify-end">
+        <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="getBenefices()">Voir
+        </button>
+    </div>
+
+
+
+    <ng-container *ngIf="benefice" >
+        <mat-tab-group class="fuse-mat-no-header">
+            <ng-container>
+                <mat-tab>
+                    <ng-template matTabContent>
+                        <div
+                            class="prose prose-sm max-w-3xl mx-auto sm:my-2 lg:mt-4 p-6 sm:p-10 sm:py-12 rounded-2xl shadow overflow-hidden bg-card">
+                            <h1>Bénéfice du mois séléctionné</h1>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Salaire</th>
+                                        <th scope="col">Loyer</th>
+                                        <th scope="col">Achats pieces</th>
+                                        <th scope="col">Autres depenses</th>
+                                        <th scope="col">Bénéfice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td scope="col">{{benefice?.salaire}} MGA</td>
+                                        <td scope="col">{{benefice?.loyer}} MGA</td>
+                                        <td scope="col">{{benefice?.achat_piece}} MGA</td>
+                                        <td scope="col">{{benefice?.autres_depenses}} MGA</td>
+                                        <td scope="col">{{benefice?.benefice}} MGA</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-template>
+                </mat-tab>
+            </ng-container>
+        </mat-tab-group>
+    </ng-container>
+
+    
+        <!-- Divider -->
+        <div class="mt-12 mb-10 border-t"></div>
+
+        <!-- Section -->
+        <ng-container *ngIf="isInsert">
+            <div class="w-full">
+                <div class="text-xl">Veuillez rentrer les dépenses du mois</div>
+            </div>
+            <div class="grid grid-cols-4 gap-6 w-full mt-8">
+                <!-- Card holder -->
+                
+                <!-- Card number -->
+                <div class="col-span-4 sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Salaire</mat-label>
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:credit-card'"
+                            matPrefix></mat-icon>
+                        <input
+                        [formControl]="salaireControl"
+                            matInput>
+                    </mat-form-field>
+                </div>
+                <!-- Card expiration -->
+                <div class="col-span-4 sm:col-span-2">
+                    <mat-form-field
+                        class="fuse-mat-no-subscript w-full"
+                        [floatLabel]="'always'">
+                        <mat-label>Loyer</mat-label>
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:calendar'"
+                            matPrefix></mat-icon>
+                        <input
+                        [formControl]="loyerControl"
+                            matInput>
+                    </mat-form-field>
+                </div>
+                <div class="col-span-4 sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Achat pièces</mat-label>
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:hashtag'"
+                            matPrefix></mat-icon>
+                        <input [formControl]="piecesControl"  matInput>
+                    </mat-form-field>
+                </div>
+                <!-- ZIP -->
+                <div class="col-span-4 sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Autre dépenses</mat-label>
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:hashtag'"
+                            matPrefix></mat-icon>
+                        <input [formControl]="depensesControl" matInput>
+                    </mat-form-field>
+                </div>
+            </div>
+    
+            <mat-tab-group class="fuse-mat-no-header">
+                <ng-container>
+                    <mat-tab>
+                        <ng-template matTabContent>
+                            <div
+                                class="prose prose-sm max-w-3xl mx-auto sm:my-2 lg:mt-4 p-6 sm:p-10 sm:py-12 rounded-2xl shadow overflow-hidden bg-card">
+                                <h1>Liste des pièces</h1>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Piece</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Prix</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Données</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </ng-template>
+                    </mat-tab>
+                </ng-container>
+            </mat-tab-group>
+            <!-- Divider -->
+            <div class="mt-11 mb-10 border-t"></div>
+    
+            <!-- Actions -->
+            <div class="flex items-center justify-end">
+                <button
+                    class="ml-4"
+                    mat-flat-button
+                    type="button"
+                    [color]="'primary'" (click)="addBenefice()">Ajouter
+                </button>
+            </div>
+    
+        </ng-container>
+        
+
+
+</div>

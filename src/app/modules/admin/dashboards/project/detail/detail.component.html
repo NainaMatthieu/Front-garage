@@ -1,0 +1,55 @@
+<div class="flex flex-col flex-auto w-full">
+
+    <div class="flex flex-wrap w-full max-w-screen-xl mx-auto p-6 md:p-8">
+
+        <!-- Section title -->
+        
+        <div class="flex-auto p-6 sm:p-10">
+            <div class="mt-12">
+                <div class="text-2xl font-semibold tracking-tight leading-6">Déposer ici votre voiture</div>
+            </div>
+            <div class="max-w-3xl">
+
+                <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden">
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto gt-xs:pr-3">
+                            <mat-label>Modèle de la voiture</mat-label>
+                            <input matInput>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="fuse-mat-textarea flex-auto">
+                            <mat-label>Numéro d'Immatriculation</mat-label>
+                            <textarea
+                                matInput
+                                [rows]="3"
+                                matTextareaAutosize></textarea>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                        <button
+                            class="px-6 ml-3"
+                            mat-flat-button
+                            [color]="'primary'">
+                            Save
+                        </button>
+                    </div>
+                </form>       
+            </div>
+        </div>
+
+    </div>
+
+</div>

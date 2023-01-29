@@ -1,0 +1,113 @@
+<div class="flex flex-col flex-auto overflow-y-auto lg:overflow-hidden bg-card dark:bg-default">
+<!-- <pre>{{ voiture | json}}</pre>-->
+<!-- <pre>{{ listDemandePaiement | json}}</pre>  -->
+<!-- <pre>{{listToggle | json}}</pre> -->
+    <ng-container *ngIf="'true'; else selectChatOrStartNew">
+
+        <mat-drawer-container
+            class="flex-auto h-full"
+            [hasBackdrop]="false">
+
+            <!-- Drawer content -->
+            <mat-drawer-content class="flex flex-col overflow-hidden">
+
+                <!-- Header -->
+                <div class="flex flex-0 items-center h-18 px-4 md:px-6 border-b bg-gray-50 dark:bg-transparent">
+
+                    <!-- Back button -->
+                    <a
+                        class="lg:hidden md:-ml-2"
+                        mat-icon-button
+                        [routerLink]="['./']"
+                        (click)="resetChat()">
+                        <mat-icon [svgIcon]="'heroicons_outline:arrow-narrow-left'"></mat-icon>
+                    </a>
+
+                    <!-- Header validation paiement corps -->
+                    <div class="flex items-center ml-2 lg:ml-0 mr-2 cursor-pointer">
+                        <div class="ml-4 text-lg font-medium leading-5 truncate">{{voiture.modele}} : {{voiture.numero}}</div>
+                    </div>
+                    <div class="ml-auto w-15 h-15">
+                    <img
+                        class="w-full h-full rounded-full object-cover"
+                        src="assets/images/avatars/validationpaiement.png"
+                        alt="Contact avatar"/>
+                    </div>
+
+                </div>
+
+                <!-- Conversation -->
+                <div class="flex overflow-y-auto flex-col-reverse" style="min-height:45% ;">
+                        <div
+                            class="prose prose-sm max-w-3xl mx-auto sm:my-2 lg:mt-4 p-6 sm:p-10 sm:py-12 rounded-2xl shadow overflow-hidden bg-card">
+                            <table class="table" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Pièce</th>
+                                        <th scope="col">Date de la demande</th>
+                                        <th scope="col">Total</th>
+                                        <th scope="col">Validation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngIf="listDemandePaiement &&listDemandePaiement.length>0; else noSortie">
+                                        <tr *ngFor="let demandepaiement of listDemandePaiement;let i =index">
+                                            <th scope="row">1</th>
+                                            <td>{{demandepaiement.piece.designation}}</td>
+                                            <td>{{demandepaiement.date  | date:'dd MMMM yyyy' }}</td>
+                                            <td>{{demandepaiement.totalDue}}</td>
+                                            <td>
+                                                <button
+                                                class="ml-3"
+                                                mat-flat-button
+                                                style="background-color: #17e86ed4;"
+                                                (click)="validerPaiement(i)">
+                                                <mat-icon [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                                                <span class="ml-2 mr-1">Validé</span>
+                                                <mat-progress-spinner
+                                                    [diameter]="24"
+                                                    [mode]="'indeterminate'"></mat-progress-spinner>
+                                            </button>
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                    <ng-template #noSortie>
+                                        
+                                            <th colspan="5" style="text-align: center;">Pas de validation de paiement pour ce vehicule ou encore en chargement...</th>
+                                        
+                                    </ng-template>
+                                </tbody>
+                            </table>
+                        </div>
+                </div>
+
+
+            </mat-drawer-content>
+
+        </mat-drawer-container>
+
+    </ng-container>
+
+    <!-- Choisir un voiture -->
+    <ng-template #selectChatOrStartNew>
+        <div class="flex flex-col flex-auto items-center justify-center bg-gray-100 dark:bg-transparent">
+            <mat-icon
+                class="icon-size-24"
+                [svgIcon]="'heroicons_outline:chat'"></mat-icon>
+            <div class="mt-4 text-2xl font-semibold tracking-tight text-secondary">Choisir un voiture</div>
+        </div>
+    </ng-template>
+
+    <!-- Speech bubble tail SVG -->
+    <!-- @formatter:off -->
+    <ng-template #speechBubbleExtension>
+        <svg width="100%" height="100%" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path d="M1.01522827,0.516204834 C-8.83532715,54.3062744 61.7609863,70.5215302 64.8009949,64.3061218 C68.8074951,54.8859711 30.1663208,52.9997559 37.5036011,0.516204834 L1.01522827,0.516204834 Z" fill="currentColor" fill-rule="nonzero"></path>
+            </g>
+        </svg>
+    </ng-template>
+    <!-- @formatter:on -->
+
+</div>

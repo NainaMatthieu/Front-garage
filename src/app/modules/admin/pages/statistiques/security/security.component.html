@@ -1,0 +1,80 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+
+    <!-- Section -->
+    
+    <div class="w-full">
+        <div class="text-xl">Chiffre d'affaires par jour</div>
+        <div class="text-secondary">Statistiques entre deux dates</div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+        <!-- Current password -->
+        <div class="sm:col-span-4">
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>Première date</mat-label>
+                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:calendar'" matPrefix></mat-icon>
+                <input [formControl]="date1Control" type="date" matInput>
+            </mat-form-field>
+        </div>
+        <!-- New password -->
+        <div class="sm:col-span-4">
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>Deuxième date</mat-label>
+                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:calendar'" matPrefix></mat-icon>
+                <input [formControl]="date2Control" type="date" matInput>
+            </mat-form-field>
+            <div class="mt-1 text-md text-hint">La deuxième date ne doit pas être antérieure à la première.</div>
+        </div>
+    </div>
+    
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+        <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="getChiffreAffaires()">Voir
+        </button>
+    </div>
+
+    <div class="chart-container">
+        <canvas id="MyChart">{{ chart }}</canvas>
+    </div>
+
+    <!-- Divider -->
+    <div class="my-10 border-t"></div>
+
+
+    <div class="my-10 border-t"></div>
+    <div class="w-full">
+        <div class="text-xl">Chiffre d'affaires par mois</div>
+    </div>
+    <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+ 
+        <!-- New password -->
+        <div class="sm:col-span-2">
+            <mat-form-field class="fuse-mat-no-subscript w-full">
+                <mat-label>Année</mat-label>
+                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:car'" matPrefix></mat-icon>
+                <mat-select [formControl]="yearControl">
+                    <!-- <mat-option *ngFor="let car of listCars" [value]="car._id">{{ car.modele }}</mat-option> -->
+                    <mat-option value="2022">2022</mat-option>
+                    <mat-option value="2023">2023</mat-option>
+                    <mat-option value="2024">2024</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>
+    <!-- Divider -->
+    <div class="my-10 border-t"></div>
+
+    <!-- Actions -->
+    <div class="flex items-center justify-end">
+        <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="getChiffreAffairesByYear()">Voir
+        </button>
+    </div>
+
+    <!-- Divider -->
+    <div class="my-10 border-t"></div>
+    <div class="chart-container">
+        <canvas id="MyChart2">{{ chart2 }}</canvas>
+    </div>
+
+</div>

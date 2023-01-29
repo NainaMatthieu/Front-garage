@@ -1,0 +1,45 @@
+<div class="flex flex-col max-w-240 md:min-w-160 max-h-screen -m-6">
+
+    <!-- Header -->
+    <div class="flex flex-0 items-center justify-between h-16 pr-3 sm:pr-5 pl-6 sm:pl-8 bg-primary text-on-primary">
+        <div class="text-lg font-medium">Modification réparation</div>
+        <button
+            mat-icon-button
+            (click)="close()"
+            [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x'"></mat-icon>
+        </button>
+    </div>
+    <span class="font-medium">Vous allez modifié l'état de la reparation :{{reparation|json}}</span>
+    <!-- Compose form -->
+    <form
+        class="flex flex-col flex-auto p-6 sm:p-8 overflow-y-auto"
+        [formGroup]="etatForm">
+
+        <!-- Etat -->
+        <mat-form-field class="w-full">
+            <mat-label>Choisir un état</mat-label>
+            <mat-select [formControlName]="'etat'">
+                <mat-option *ngFor="let etat of listEtat" [value]="etat">
+                  {{etat}}
+                </mat-option>
+              </mat-select>
+        </mat-form-field>
+        <!-- Actions -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mt-4 sm:mt-6">
+            <div class="-ml-2">
+            </div>
+            <div class="flex items-center mt-4 sm:mt-0">
+                <button
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="setEtat()">
+                    Modifié
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,111 @@
+<div
+    class="absolute inset-0 min-w-0 text-center overflow-auto print:overflow-visible"
+    cdkScrollable>
+    <div class="flex flex-0 items-center h-18 px-4 md:px-6 border-b bg-gray-50 dark:bg-transparent">
+
+
+       <!-- Header validation paiement corps -->
+       <div class="flex items-center ml-3 lg:ml-0 mr-3 ">
+        <div class="mt-3">
+            <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                Exporter Bon de sortie 
+            </h2>
+        </div>
+    </div>
+    <div class="mx-auto" style="margin-top: -20px;">
+        <button class="fuse-mat-button-large mt-6 cursor-pointer" mat-flat-button [color]="'primary'" (click)="exportPdf()">
+            <mat-icon [svgIcon]="'mat_solid:picture_as_pdf'"></mat-icon>
+                    <span>
+                        Exporter en PDF
+                    </span>
+        </button>
+    </div>
+    <div class="ml-auto w-15 h-15">
+    <img
+        class="w-full h-full rounded-full object-cover"
+        src="assets/images/avatars/export.png"
+        alt="Contact avatar"/>
+    </div>
+
+    </div>
+    <!-- Main -->
+    <div class="inline-block p-6 sm:p-10 text-left print:p-0" id="elementId">
+
+        <!-- Invoice -->
+        <div class="w-240 min-w-240 p-16 rounded-2xl shadow bg-card print:w-auto print:p-0 print:rounded-none print:shadow-none print:bg-transparent">
+
+            <div class="flex items-start">
+                <div class="grid grid-rows-2 place-items-start gap-y-12">
+                    <div class="grid auto-cols-max grid-flow-col gap-x-8">
+                        <div class="place-self-center w-24">
+                            <img
+                                class="w-24"
+                                src="assets/images/logo/logo.svg">
+                        </div>
+                        <div class="pl-10 border-l text-md">
+                            <div class="font-medium">Auto Garage Inc.</div>
+                            <div>Rue Andrianampoimerina Villa Grace</div>
+                            <div>Antsahavola, Antananarivo</div>
+                            <div>+261 34 06 376 17</div>
+                            <div>contact@autogarage.mg</div>
+                            <div>autogarage.mg</div>
+                        </div>
+                    </div>
+                    <div class="grid auto-cols-max grid-flow-col gap-x-8">
+                        <div class="place-self-center w-24 text-center text-2xl text-secondary">
+                            Destinataire
+                        </div>
+                        <div class="pl-10 border-l text-md">
+                            <div class="font-medium">{{proprio?.name}}</div>
+                            <div>Antananarivo, Madagascar 101</div>
+                            <div>+261 34 06 376 17</div>
+                            <div>{{proprio?.mail}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid auto-cols-max grid-flow-col gap-x-8 -mr-16 py-6 px-8 rounded-l-2xl">
+                    <div class="place-self-center w-24">
+                        
+                    </div>
+                    <div class="pl-10 text-md">
+                        <div class="font-medium">Auto Garage Inc.</div>
+                        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                            Bon de sortie
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="col-span-12 my-4 border-b"></div>
+
+            <div class="col-span-8">
+                <div class="text-lg font-medium">Autorisation de sortie{{dateBondeSortie |  date:'le d MMMM yyyy à HH:mm'}}</div>
+                <div class="mt-2 text-md text-secondary">
+                    Nous, propriétaires d' Auto Garage, autorisons la voiture mentionnée ici
+                    <h2 class="text-2xl md:text-2xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                        {{voiture.modele}}
+                    </h2>portant le numéro :<h2 class="text-2xl md:text-2xl font-extrabold tracking-tight leading-7 sm:leading-10 truncate">
+                        {{voiture.numero}}
+                    </h2> à sortir de notre établissement. Nous garantissons que toutes les réparations ont été effectuées correctement et que la voiture est en bon état de marche.
+                </div>
+            </div>
+            <!-- Divider -->
+            <div class="col-span-12 my-4 border-b"></div>
+
+            <div class="col-span-8">
+                <div class="text-lg font-medium">Remerciement</div>
+                <div class="mt-2 text-md text-secondary">
+                    Nous tenons à remercier notre client pour sa confiance envers notre garage automobile. Nous espérons avoir répondu à toutes ses attentes en matière de réparations de voitures et nous espérons le revoir prochainement pour tout besoin futur.
+                </div>
+            </div>
+            <div class="d-flex align-items-center mt-16">
+                <div class="ml-6 text-center text-sm text-secondary">
+                    Nous vous remercions de votre confiance et espérons avoir de vos nouvelles prochainement.
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+</div>

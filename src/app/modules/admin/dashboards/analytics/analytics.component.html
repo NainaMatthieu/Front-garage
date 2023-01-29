@@ -1,0 +1,126 @@
+<div class="flex flex-col flex-auto w-full">
+
+    <div class="flex flex-wrap w-full max-w-screen-xl mx-auto p-6 md:p-8">
+
+        <!-- Title and action buttons -->
+        <!-- <div class="flex items-center justify-between w-full">
+            <div>
+                <div class="text-3xl font-semibold tracking-tight leading-8">Analytics dashboard</div>
+                <div class="font-medium tracking-tight text-secondary">Monitor metrics, check reports and review performance</div>
+            </div>
+            <div class="flex items-center ml-6">
+                <button
+                    class="hidden sm:inline-flex"
+                    mat-stroked-button>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:cog'"></mat-icon>
+                    <span class="ml-2">Settings</span>
+                </button>
+                <button
+                    class="hidden sm:inline-flex ml-3"
+                    mat-flat-button
+                    [color]="'primary'">
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:save'"></mat-icon>
+                    <span class="ml-2">Export</span>
+                </button> -->
+
+                <!-- Actions menu (visible on xs) -->
+                <!-- <div class="sm:hidden">
+                    <button
+                        [matMenuTriggerFor]="actionsMenu"
+                        mat-icon-button>
+                        <mat-icon [svgIcon]="'heroicons_outline:dots-vertical'"></mat-icon>
+                    </button>
+                    <mat-menu #actionsMenu="matMenu">
+                        <button mat-menu-item>Export</button>
+                        <button mat-menu-item>Settings</button>
+                    </mat-menu>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Section title -->
+        
+        <div class="flex-auto p-6 sm:p-10">
+            <div class="mt-12">
+                <div class="text-2xl font-semibold tracking-tight leading-6">Ajouter une nouvelle voiture</div>
+                <div class="font-medium tracking-tight text-secondary">Confier votre voiture dans les mains de nos spécialistes</div>
+            </div>
+            <div class="max-w-3xl">
+                <fuse-alert
+                class="mt-8 -mb-4"
+                *ngIf="showAlert"
+                [appearance]="'outline'"
+                [showIcon]="false"
+                [type]="alert.type"
+                [@shake]="alert.type === 'error'">
+                {{alert.message}}
+            </fuse-alert>
+                <form class="flex flex-col mt-4 px-8 pt-10 bg-card shadow rounded overflow-hidden"
+                [formGroup]="ajoutForm"
+                #ajoutNgForm="ngForm"
+                >
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="flex-auto gt-xs:pr-3">
+                            <mat-label>Modèle de la voiture</mat-label>
+                            <input 
+                                matInput
+                                [formControlName]="'modele'"
+                            >
+                            <mat-error *ngIf="ajoutForm.get('modele').hasError('required')">
+                                Le modèle du vehicule est  obligatoire
+                            </mat-error>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex">
+                        <mat-form-field
+                            [ngClass]="formFieldHelpers"
+                            class="fuse-mat-textarea flex-auto">
+                            <mat-label>Numéro d'Immatriculation</mat-label>
+                            <textarea
+                                matInput
+                                [rows]="3"
+                                matTextareaAutosize
+                                [formControlName]="'numero'"
+                                ></textarea>
+                            <mat-error *ngIf="ajoutForm.get('numero').hasError('required')">
+                                Numéro d'Immatriculation obligatoire
+                            </mat-error>
+                            <mat-icon
+                                class="icon-size-5"
+                                matSuffix
+                                [svgIcon]="'pin'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                        <button
+                            class="fuse-mat-button-large w-full mt-6"
+                            mat-flat-button
+                            [color]="'primary'"
+                            [disabled]="ajoutForm.disabled"
+                            (click)="ajouterVoiture()">
+                            <span *ngIf="!ajoutForm.disabled">
+                                Sauvegarder
+                            </span>
+                            <mat-progress-spinner
+                                *ngIf="ajoutForm.disabled"
+                                [diameter]="24"
+                                [mode]="'indeterminate'"></mat-progress-spinner>
+                        </button>
+                    </div>
+                </form>       
+            </div>
+        </div>
+
+    </div>
+
+</div>

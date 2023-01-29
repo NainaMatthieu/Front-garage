@@ -1,0 +1,113 @@
+<div class="absolute inset-0 min-w-0 text-center overflow-auto print:overflow-visible" cdkScrollable>
+
+    <!-- Main -->
+    <div class="inline-block p-6 sm:p-10 text-left print:p-0">
+
+        <!-- Invoice -->
+        <div
+            class="w-240 p-16 rounded-2xl shadow bg-card print:w-auto print:rounded-none print:shadow-none print:bg-transparent">
+
+            <div class="flex items-start justify-between">
+                <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+                    <div class="text-4xl tracking-tight text-secondary">Facture</div>
+                    <div class="text-4xl">#9-0004</div>
+                    <div class="font-medium tracking-tight text-secondary">Date de la Facture</div>
+                    <div class="font-medium">{{dateBondeSortie |  date:'d MMMM yyyy'}}</div>
+
+                    <div class="font-medium tracking-tight text-secondary">Total</div>
+                    <div class="font-medium">{{ totalPrix | number: '1.3-3' }} MGA</div>
+                </div>
+                <div class="grid auto-cols-max grid-flow-col gap-x-8 -mr-16 py-6 px-8 rounded-l-2xl bg-accent dark">
+                    <div class="place-self-center w-24">
+                        <img class="w-24" src="assets/images/logo/logo.svg">
+                    </div>
+                    <div class="pl-10 border-l text-md">
+                        <div class="font-medium">Auto Garage Inc.</div>
+                        <div>Rue Andrianampoimerina Villa Grace</div>
+                        <div>Antsahavola, Antananarivo</div>
+                        <div>+261 34 06 376 17</div>
+                        <div>contact@autogarage.mg</div>
+                        <div>autogarage.mg</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-md">
+                <div class="text-xl font-medium">{{user?.identifiant}}</div>
+                <div>Antananarivo, Madagascar 101</div>
+                <div>{{user?.mail}}</div>
+                <div>+261 34 06 376 17</div>
+            </div>
+
+            <div class="grid grid-cols-12 gap-x-1 mt-12">
+                <!-- Columns -->
+                <div class="col-span-4 font-medium text-md text-secondary">Pièce</div>
+                <div class="col-span-3 font-medium text-md text-right text-secondary">Description</div>
+                <div class="col-span-3 font-medium text-md text-right text-secondary">Prix</div>
+                <div class="col-span-2 font-medium text-md text-right text-secondary">Etat</div>
+                <!--<div class="col-span-2 font-medium text-md text-right text-secondary">TOTAL</div>-->
+
+                <!-- Divider -->
+                <div class="col-span-12 my-4 border-b"></div>
+
+                <ng-container *ngIf="reparation?.listeReparation?.length > 0; else noListe">
+                <ng-container *ngFor="let detail of reparation?.listeReparation">
+                    <!-- Item -->
+                    <div class="col-span-4 text-lg font-medium">{{detail?.piece?.designation}}</div>
+                    <div class="col-span-3 self-center text-right">{{detail?.description}}</div>
+                    <div class="col-span-3 self-center text-right">{{detail?.prix | number: '1.3-3'}} MGA</div>
+                    <div class="col-span-2 self-center text-right">{{detail?.estPaye ? 'Payé' : 'Non payé'}}</div>
+                    <!-- Spacer -->
+                    <div class="col-span-12 mt-16"></div>
+                </ng-container>
+            </ng-container>
+                <ng-template #noListe><div class="col-span-8 text-lg font-medium">N/A</div>
+                    <div class="self-center text-right">N/A</div>
+                    <div class="self-center text-right">N/A</div>
+                    <div class="col-span-12 mt-16"></div>
+                </ng-template>
+
+                <!-- Subtotal -->
+                <div class="col-span-10 self-center font-medium tracking-tight text-secondary">Sous-Total</div>
+                <div class="col-span-2 text-right text-lg">{{ totalPrix | number: '1.3-3' }} MGA</div>
+
+                <!-- Divider -->
+                <div class="col-span-12 my-3 border-b"></div>
+
+                <!-- Tax -->
+                <div class="col-span-10 self-center font-medium tracking-tight text-secondary">Taxe</div>
+                <div class="col-span-2 text-right text-lg">0 MGA</div>
+
+                <!-- Divider -->
+                <div class="col-span-12 my-3 border-b"></div>
+
+                <!-- Discount -->
+                <div class="col-span-10 self-center font-medium tracking-tight text-secondary">Remise</div>
+                <div class="col-span-2 text-right text-lg">0 MGA</div>
+
+                <!-- Divider -->
+                <div class="col-span-12 my-3 border-b"></div>
+
+                <!-- Total -->
+                <div class="col-span-10 self-center text-2xl font-medium tracking-tight text-secondary">Total</div>
+                <div class="col-span-2 text-right text-2xl font-medium">{{ totalPrix | number: '1.3-3' }} MGA</div>
+            </div>
+
+            <div class="mt-16">
+                <div class="font-medium"></div>
+                <div class="flex items-start mt-4">
+                    <img class="flex-0 w-10 mt-2" src="assets/images/logo/logo.svg">
+                    <div class="ml-6 text-sm text-secondary">
+                        AUTO GARAGE
+                        
+                        <p class="font-medium tracking-tight text-secondary">ETU-1084 && ETU-1187</p>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
