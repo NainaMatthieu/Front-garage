@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Category, Course, ListeReparation, ReparationsVoitures } from 'app/modules/admin/apps/academy/academy.types';
-const baseUrl = 'http://localhost:9000/';
+const baseUrl = 'http://back-garage.vercel.app/';
 @Injectable({
     providedIn: 'root'
 })
@@ -121,24 +121,24 @@ export class AcademyService
     }
 
     getAllReparation(){
-        return this._httpClient.get("http://localhost:9000/reparation");
+        return this._httpClient.get("http://back-garage.vercel.app/reparation");
     }
 
     getAllReparationByUser(idUser: String){
-        return this._httpClient.get("http://localhost:9000/reparation/"+idUser);
+        return this._httpClient.get("http://back-garage.vercel.app/reparation/"+idUser);
     }
 
     getReparationById(id: String){
-        this.reparation = this._httpClient.get("http://localhost:9000/reparation/get/"+id);
-        return this._httpClient.get("http://localhost:9000/reparation/get/"+id);
+        this.reparation = this._httpClient.get("http://back-garage.vercel.app/reparation/get/"+id);
+        return this._httpClient.get("http://back-garage.vercel.app/reparation/get/"+id);
     }
 
     getPieceById(id: String){
-        return this._httpClient.get("http://localhost:9000/piece/"+id);
+        return this._httpClient.get("http://back-garage.vercel.app/piece/"+id);
     }
 
     getReparationById2(id: String) {
-        return this._httpClient.get("http://localhost:9000/reparation/get/"+id).pipe(
+        return this._httpClient.get("http://back-garage.vercel.app/reparation/get/"+id).pipe(
             map(response => response as any)
         );
     }
@@ -148,6 +148,6 @@ export class AcademyService
     }
     
     getAllCars(){
-        return this._httpClient.get("http://localhost:9000/user/car");
+        return this._httpClient.get("http://back-garage.vercel.app/user/car");
     }
 }

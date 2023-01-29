@@ -110,31 +110,31 @@ export class ReceptionService
 
     getNonReceptionne(){
         const body = { };
-        return this._httpClient.post("http://localhost:9000/reparation/depose",body);
+        return this._httpClient.post("http://back-garage.vercel.app/reparation/depose",body);
     }
 
     getReparationById(id: String){
-        this._reparation = this._httpClient.get("http://localhost:9000/reparation/get/"+id);
-        return this._httpClient.get("http://localhost:9000/reparation/get/"+id);
+        this._reparation = this._httpClient.get("http://back-garage.vercel.app/reparation/get/"+id);
+        return this._httpClient.get("http://back-garage.vercel.app/reparation/get/"+id);
     }
 
     getPieces() {
-        return this._httpClient.get("http://localhost:9000/piece").pipe(
+        return this._httpClient.get("http://back-garage.vercel.app/piece").pipe(
             map(response => response as any)
         );
     }
 
     insertReparations(piece:any,id:String){
         const body = {id,idPiece:piece.idPiece,description:piece.description,prix:piece.prix};
-        return this._httpClient.put("http://localhost:9000/reparation/add/"+id,body);
+        return this._httpClient.put("http://back-garage.vercel.app/reparation/add/"+id,body);
     }
 
     updateReceptionne(id:String){
         const body = {id};
-        return this._httpClient.put("http://localhost:9000/reparation/estReceptionne/"+id,body);
+        return this._httpClient.put("http://back-garage.vercel.app/reparation/estReceptionne/"+id,body);
     }
 
     getAllCars(){
-        return this._httpClient.get("http://localhost:9000/user/car");
+        return this._httpClient.get("http://back-garage.vercel.app/user/car");
     }
 }
