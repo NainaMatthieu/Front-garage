@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, filter, map, Observable, of, switchMap, take, tap, throwError } from 'rxjs';
 import { Chat, Contact, DemandePaiement, Profile, Voiture } from 'app/modules/admin/apps/chat/chat.types';
-import { baseUrl } from 'environments/environment';
+const baseUrl = 'http://localhost:9000/';
 
 @Injectable({
     providedIn: 'root'

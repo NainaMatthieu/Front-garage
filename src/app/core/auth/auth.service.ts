@@ -3,12 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
-import { baseUrl } from 'environments/environment';
 @Injectable()
 export class AuthService
 {
     _authenticated: boolean = false;
-
+    baseUrl = 'http://localhost:9000/';
     /**
      * Constructor
      */
@@ -163,14 +162,14 @@ export class AuthService
      */
     signUp(user: { identifiant: string; mail: string; motDePasse: string}): Observable<any>
     {
-        const url = baseUrl+'user/inscription';
+        const url = this.baseUrl+'user/inscription';
         console.log(url);
         console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<');
         console.log(user);
         return this._httpClient.post(url, user);
     }
     confirmCompte(data: {code: string}): Observable<any>{
-        return this._httpClient.post(baseUrl+'user/confirmation',data);
+        return this._httpClient.post(this.baseUrl+'user/confirmation',data);
     }
     /**
      * Unlock session

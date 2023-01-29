@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Category, Course, ListeReparation, ReparationsVoitures } from 'app/modules/admin/apps/academy/academy.types';
-import { baseUrl } from 'environments/environment';
-
+const baseUrl = 'http://localhost:9000/';
 @Injectable({
     providedIn: 'root'
 })

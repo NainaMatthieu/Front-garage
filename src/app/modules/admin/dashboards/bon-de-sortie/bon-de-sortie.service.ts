@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
-import { baseUrl } from 'environments/environment';
+const baseUrl = 'http://localhost:9000/';
 import { Utilisateur, Voiture } from './bon-de-sortie.types';
 
 
