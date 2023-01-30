@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, of, switchMap, tap, throwError } from 'rxjs';
 import { Category, Course } from 'app/modules/admin/apps/reception/reception.types';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -131,8 +132,14 @@ export class ReceptionService
 
     updateReceptionne(id:String){
         const body = {id};
-        return this._httpClient.put("https://back-garage.vercel.app/reparation/estReceptionne/"+id,body);
-    }
+        const httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+          })
+        };
+        return this._httpClient.put("https://back-garage.vercel.app/reparation/estReceptionne/"+id, body, httpOptions);
+      }
 
     getAllCars(){
         return this._httpClient.get("https://back-garage.vercel.app/user/car");
