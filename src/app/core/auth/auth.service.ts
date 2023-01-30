@@ -7,7 +7,7 @@ import { UserService } from 'app/core/user/user.service';
 export class AuthService
 {
     _authenticated: boolean = false;
-    baseUrl = 'back-garage.vercel.app/';
+    baseUrl = 'https://back-garage.vercel.app/';
     /**
      * Constructor
      */
