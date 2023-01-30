@@ -24,6 +24,6 @@ export class UtilisateurSerice
         return this._httpClient.get(this.url+'car/'+idUser);
     }
     depotVoiture(data:any): Observable<any>{
-        return this._httpClient.post(this.urlReparation+'/insert',data);
+        return this._httpClient.post(this.urlReparation+'insert',data);
     }
 }
