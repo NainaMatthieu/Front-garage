@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-const baseUrl = 'http://back-garage.vercel.app/';
+const baseUrl = 'https://back-garage.vercel.app/';
 
 @Injectable({
     providedIn: 'root'
